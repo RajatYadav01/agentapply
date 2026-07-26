@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/**
+ * Core application being processed by browser agent
+ */
+model Application {
+  id String @id @default(cuid())
+
+  applicantName String
+  email String
+
+  phone String?
+  currentCompany String?
+  linkedinUrl String?
+  jobId String
+
+  status ApplicationStatus @default(PENDING)
+
+  retryCount Int @default(0)
+
+  startedAt DateTime?
+  finishedAt DateTime?
+
+  duration Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  failures FailureLog[]
+  timeline TimelineEvent[]
+}
+
+/**
+ * Failure tracking for debugging automation
+ */
+model FailureLog {
+  id String @id @default(cuid())
+
+  applicationId String
+
+  step String
+
+  message String
+
+  screenshot String?
+
+  currentUrl String?
+
+  timestamp DateTime @default(now())
+
+  application Application @relation(fields:[applicationId], references:[id], onDelete:Cascade)
+}
+
+/**
+ * Step-by-step execution trace of browser agent
+ */
+model TimelineEvent {
+  id String @id @default(cuid())
+
+  applicationId String
+
+  step String
+
+  status TimelineStatus
+
+  message String?
+
+  timestamp DateTime @default(now())
+
+  application Application @relation(fields:[applicationId], references:[id], onDelete:Cascade)
+}
+
+/**
+ * Enum: Application status lifecycle
+ */
+enum ApplicationStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+/**
+ * Enum: Timeline status
+ */
+enum TimelineStatus {
+  INFO
+  SUCCESS
+  ERROR
+}

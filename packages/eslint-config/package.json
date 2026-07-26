@@ -1,0 +1,13 @@
+{
+	"name": "@agentapply/eslint-config",
+	"version": "0.0.0",
+	"private": true,
+	"license": "BSD-3-Clause",
+	"type": "module",
+	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./node": "./node.js",
+		"./react": "./react.js"
+	}
+}

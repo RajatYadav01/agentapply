@@ -1,0 +1,16 @@
+{
+	"name": "@agentapply/api-proxy",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch index.ts",
+		"build": "tsc -b",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"@agentapply/tsconfig": "workspace:*"
+	},
+	"devDependencies": {
+		"tsx": "^4.22.4"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "@agentapply/types",
+	"version": "0.0.0",
+	"private": true,
+	"license": "BSD-3-Clause",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc -b",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"@agentapply/config": "workspace:*"
+	},
+	"devDependencies": {
+		"@agentapply/tsconfig": "workspace:*"
+	}
+}

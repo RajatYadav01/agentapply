@@ -1,0 +1,35 @@
+{
+	"name": "@agentapply/agent-v1",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"lint": "eslint . --ext .ts",
+		"test": "vitest",
+		"test:unit": "vitest run unit.test.ts --passWithNoTests",
+		"test:integration": "vitest run integration.test.ts --passWithNoTests",
+		"test:ui": "vitest --ui",
+		"test:run": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:watch": "vitest --watch",
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc -b",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"@agentapply/config": "workspace:*",
+		"@agentapply/db": "workspace:*",
+		"@agentapply/logger": "workspace:*",
+		"@agentapply/types": "workspace:*",
+		"@browserbasehq/stagehand": "^3.6.0",
+		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@agentapply/eslint-config": "workspace:*",
+		"@agentapply/tsconfig": "workspace:*",
+		"@types/express": "^5.0.6",
+		"@types/supertest": "^7.2.1",
+		"supertest": "^7.2.2",
+		"tsx": "^4.22.4",
+		"vitest": "^4.1.8"
+	}
+}

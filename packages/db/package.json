@@ -1,0 +1,37 @@
+{
+	"name": "@agentapply/db",
+	"version": "0.0.0",
+	"private": true,
+	"sideEffects": false,
+	"license": "UNLICENSED",
+	"type": "module",
+	"main": "./dist/src/index.js",
+	"types": "./dist/src/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/src/index.d.ts",
+			"import": "./dist/src/index.js",
+			"default": "./dist/src/index.js"
+		}
+	},
+	"scripts": {
+		"dev": "prisma generate && prisma migrate dev",
+		"generate": "prisma generate",
+		"migrate": "prisma migrate dev",
+		"studio": "prisma studio",
+		"typecheck": "tsc --noEmit",
+		"build": "tsc -b",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"@agentapply/config": "workspace:*",
+		"@prisma/adapter-pg": "^7.8.0",
+		"@prisma/client": "^7.8.0",
+		"pg": "^8.22.0"
+	},
+	"devDependencies": {
+		"@agentapply/tsconfig": "workspace:*",
+		"@types/pg": "^8.20.0",
+		"prisma": "^7.8.0"
+	}
+}

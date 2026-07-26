@@ -1,0 +1,122 @@
+services:
+  agentapply-database:
+    image: postgres:18
+    container_name: agentapply-database
+    environment:
+      - POSTGRES_USER=agentapply
+      - POSTGRES_PASSWORD=1751420
+      - POSTGRES_DB=agentapply
+    ports:
+      - "5440:5432"
+    volumes:
+      - agentapply-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentapply"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agentapply
+
+  agentapply-api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: agentapply-api
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://agentapply:1751420@agentapply-database:5432/agentapply
+      - API_PORT=3005
+      - API_URL=http://agentapply-api:3005/api/v1
+      - AGENT_URL=http://agentapply-agent:4005/agent/v1
+      - ATS_URL=http://agentapply-ats:5005/ats
+    ports:
+      - "3005:3005"
+    depends_on:
+      agentapply-database:
+        condition: service_healthy
+    volumes:
+      - ./apps/api:/app/apps/api
+      - ./packages:/app/packages
+      - /app/node_modules
+    networks:
+      - agentapply
+
+  agentapply-agent:
+    build:
+      context: .
+      dockerfile: apps/agent/Dockerfile
+    container_name: agentapply-agent
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://agentapply:1751420@agentapply-database:5432/agentapply
+      - AGENT_PORT=4005
+      - API_URL=http://agentapply-api:3005/api/v1
+      - AGENT_URL=http://agentapply-agent:4005/agent/v1
+      - ATS_URL=http://agentapply-ats:5005/ats
+      - STAGEHAND_HEADLESS=true
+    ports:
+      - "4005:4005"
+    depends_on:
+      - agentapply-api
+      - agentapply-database
+    volumes:
+      - ./apps/agent:/app/apps/agent
+      - ./packages:/app/packages
+      - /app/node_modules
+    networks:
+      - agentapply
+
+  agentapply-ats:
+    build:
+      context: .
+      dockerfile: apps/ats/Dockerfile
+    container_name: agentapply-ats
+    environment:
+      - NODE_ENV=production 
+      - DATABASE_URL=postgresql://agentapply:1751420@agentapply-database:5432/agentapply
+      - ATS_PORT=5005
+      - API_URL=http://agentapply-api:3005/api/v1
+      - AGENT_URL=http://agentapply-agent:4005/agent/v1
+      - ATS_URL=http://agentapply-ats:5005/ats
+    ports:
+      - "5005:5005"
+    depends_on:
+      - agentapply-api
+      - agentapply-agent
+      - agentapply-database
+    volumes:
+      - ./apps/ats:/app/apps/ats
+      - ./packages:/app/packages
+      - /app/node_modules
+    networks:
+      - agentapply
+
+  agentapply-web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - VITE_BASE_URL=/
+        - VITE_API_URL=http://localhost:3005/api/v1
+        - VITE_ATS_URL=http://localhost:5005/ats
+    container_name: agentapply-web
+    ports:
+      - "5175:80"
+    depends_on:
+      - agentapply-api
+      - agentapply-agent
+      - agentapply-ats
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages:/app/packages
+      - /app/node_modules
+    networks:
+      - agentapply
+
+volumes:
+  agentapply-db-data:
+
+networks:
+  agentapply:
+    driver: bridge

@@ -1,0 +1,10 @@
+{
+	"extends": "@agentapply/tsconfig/nodejs.json",
+	"compilerOptions": {
+		"types": ["node"],
+		"rootDir": "./src",
+		"outDir": "./dist"
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
+}

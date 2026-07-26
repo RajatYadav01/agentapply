@@ -1,0 +1,11 @@
+{
+	"extends": "@agentapply/tsconfig/nodejs.json",
+	"compilerOptions": {
+		"emitDeclarationOnly": true,
+		"stripInternal": true,
+		"rootDir": "./src",
+		"outDir": "./dist"
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
+}

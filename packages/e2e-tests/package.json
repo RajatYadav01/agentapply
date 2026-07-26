@@ -1,0 +1,16 @@
+{
+	"name": "@agentapply/e2e-tests",
+	"version": "0.0.0",
+	"private": true,
+	"license": "BSD-3-Clause",
+	"type": "module",
+	"scripts": {
+		"test:e2e": "playwright test"
+	},
+	"devDependencies": {
+        "@agentapply/db": "workspace:*",
+		"@agentapply/tsconfig": "workspace:*",
+		"@playwright/test": "^1.60.0",
+		"playwright": "^1.60.0"
+	}
+}
