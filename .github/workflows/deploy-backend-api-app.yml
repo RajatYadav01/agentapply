@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Backend API App
 
 on:
   workflow_run:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-backend:
+  deploy-backend-api-app:
     runs-on: ubuntu-latest
     environment: production
     concurrency:
-      group: backend-deploy
+      group: backend-api-deploy
       cancel-in-progress: false
 
     if: >-

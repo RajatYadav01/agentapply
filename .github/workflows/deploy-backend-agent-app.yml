@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Backend Agent App
 
 on:
   workflow_run:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-backend:
+  deploy-backend-agent-app:
     runs-on: ubuntu-latest
     environment: production
     concurrency:
-      group: backend-deploy
+      group: backend-agent-deploy
       cancel-in-progress: false
 
     if: >-

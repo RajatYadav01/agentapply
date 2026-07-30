@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Backend ATS App
 
 on:
   workflow_run:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-backend:
+  deploy-backend-ats-app:
     runs-on: ubuntu-latest
     environment: production
     concurrency:
-      group: backend-deploy
+      group: backend-ats-deploy
       cancel-in-progress: false
 
     if: >-

@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Deploy Frontend Web App
 
 on:
   workflow_run:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-frontend:
+  deploy-frontend-web-app:
     runs-on: ubuntu-latest
     environment: production
     concurrency:
-      group: frontend-deploy
+      group: frontend-web-deploy
       cancel-in-progress: false
 
     env:
