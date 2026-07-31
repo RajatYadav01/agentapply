@@ -5,6 +5,7 @@
 		{ "path": "apps/api/v1" },
 		{ "path": "apps/agent" },
 		{ "path": "apps/agent/v1" },
+		{ "path": "apps/ats" },
 		{ "path": "apps/web" },
 		{ "path": "packages/e2e-tests" },
 		{ "path": "packages/config" },
