@@ -2,9 +2,9 @@
 	"extends": "@agentapply/tsconfig/nodejs.json",
 	"compilerOptions": {
 		"types": ["node", "vitest/globals"],
-        "rootDir": ".",
-        "outDir": "./dist"
+		"rootDir": ".",
+		"outDir": "./dist"
 	},
-	"include": ["src/**/*", "vitest.config.ts", "vitest.setup.ts"],
-	"exclude": ["node_modules", "dist"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "vitest.config.ts", "vitest.setup.ts"]
 }

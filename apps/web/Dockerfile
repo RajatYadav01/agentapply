@@ -7,7 +7,7 @@ RUN npm install -g pnpm turbo
 COPY . .
 
 # Prune monorepo to ONLY include @agentapply/web and its workspace dependencies
-RUN turbo prune --scope=@agentapply/web --docker
+RUN turbo prune @agentapply/web --docker
 
 # ==========================================
 # STAGE 2: Build React App

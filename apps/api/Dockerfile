@@ -10,7 +10,7 @@ RUN npm install -g pnpm turbo
 COPY . .
 
 # Prune the monorepo to ONLY include @agentapply/api and its workspace dependencies
-RUN turbo prune --scope=@agentapply/api-v1 --docker
+RUN turbo prune @agentapply/api-v1 --docker
 
 # ==========================================
 # STAGE 2: Build the Application
@@ -31,6 +31,10 @@ RUN pnpm install --frozen-lockfile
 COPY --from=pruner /app/out/full/ .
 
 # Build the project (TypeScript compilation)
+RUN pnpm --filter=@agentapply/types build
+RUN pnpm --filter=@agentapply/config build
+RUN pnpm --filter=@agentapply/logger build
+RUN pnpm --filter=@agentapply/db build
 RUN pnpm --filter=@agentapply/api-v1 build
 
 # ==========================================

@@ -5,7 +5,7 @@ FROM node:24-alpine AS pruner
 WORKDIR /app
 RUN npm install -g pnpm turbo
 COPY . .
-RUN turbo prune --scope=@agentapply/agent-v1 --docker
+RUN turbo prune @agentapply/agent-v1 --docker
 
 # ==========================================
 # STAGE 2: Build
@@ -20,6 +20,10 @@ RUN pnpm install --frozen-lockfile
 
 COPY --from=pruner /app/out/full/ .
 
+RUN pnpm --filter=@agentapply/types build
+RUN pnpm --filter=@agentapply/config build
+RUN pnpm --filter=@agentapply/logger build
+RUN pnpm --filter=@agentapply/db build
 RUN pnpm --filter=@agentapply/agent-v1 build
 
 # ==========================================

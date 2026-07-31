@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g pnpm turbo
 COPY . .
 # Prune monorepo to ONLY include @agentapply/ats and its direct workspace deps
-RUN turbo prune --scope=@agentapply/ats --docker
+RUN turbo prune @agentapply/ats --docker
 
 # ==========================================
 # STAGE 2: Build Application
@@ -23,6 +23,10 @@ RUN pnpm install --frozen-lockfile
 # Copy pruned source code & build
 COPY --from=pruner /app/out/full/ .
 
+RUN pnpm --filter=@agentapply/types build
+RUN pnpm --filter=@agentapply/config build
+RUN pnpm --filter=@agentapply/logger build
+RUN pnpm --filter=@agentapply/db build
 RUN pnpm --filter=@agentapply/ats build
 
 # ==========================================
