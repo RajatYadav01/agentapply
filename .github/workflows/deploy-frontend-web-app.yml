@@ -40,6 +40,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build workspace dependencies
+        run: pnpm --filter=@agentapply/types --filter=@agentapply/config --filter=@agentapply/logger --filter=@agentapply/db build
+
       - name: Install Vercel CLI
         run: pnpm add -g vercel
 
