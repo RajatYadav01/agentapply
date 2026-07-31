@@ -3,7 +3,16 @@ import cors from "cors";
 import { v4 as uuidv4 } from "uuid";
 import { config } from "@agentapply/config";
 import { logger } from "@agentapply/logger";
-import type { Application } from "@agentapply/types";
+
+export interface AtsApplication {
+	id: string;
+	applicantName: string;
+	email: string;
+	phone: string;
+	currentCompany?: string;
+	linkedinUrl?: string;
+	submittedAt: string;
+}
 
 export const app: Express = express();
 
@@ -13,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Store applications in memory (simulating a database)
-const applications: Application[] = [];
+const applications: AtsApplication[] = [];
 
 // Serve the ATS form
 app.get("/ats/", (req, res) => {
@@ -312,7 +321,7 @@ app.post("/ats/apply", (req, res) => {
 		}
 
 		// Store application
-		const application: Application = {
+		const application: AtsApplication = {
 			id: uuidv4(),
 			applicantName,
 			email,
