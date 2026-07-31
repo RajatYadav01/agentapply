@@ -226,7 +226,7 @@ To setup the project using Docker:
    docker-compose up --build
    ```
 
-4. After all the containers have been started, open any browser and go to `http://localhost:5173` to access the web application.
+4. After all the containers have been started, open any browser and go to `http://localhost:5175` to access the web application.
 
 ### Testing
 
